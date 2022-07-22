@@ -75,7 +75,8 @@ CREATE TABLE assets(
     employee_id INT NOT NULL,
     assets_status INT NOT NULL,
     PRIMARY KEY (assets_id),
-    FOREIGN KEY (employee_id) REFERENCES employee(id) ON DELETE CASCADE
+    FOREIGN KEY (employee_id) REFERENCES employee(id) ON
+DELETE CASCADE
 );
 
 CREATE TABLE manage(
@@ -86,8 +87,10 @@ CREATE TABLE manage(
     manage_reason VARCHAR(50),
     manage_cost VARCHAR(1000) NOT NULL,
     PRIMARY KEY (assets_id, manage_type, manage_date, manage_reason, manage_cost),
-    FOREIGN KEY (employee_id) REFERENCES employee(id)  ON DELETE CASCADE,
-    FOREIGN key (assets_id) REFERENCES assets(assets_id)  ON DELETE CASCADE
+    FOREIGN KEY (employee_id) REFERENCES employee(id) ON
+DELETE CASCADE ,
+    FOREIGN key (assets_id) REFERENCES assets(assets_id) ON
+DELETE CASCADE
 );
 
 CREATE TABLE Dishes(
@@ -168,7 +171,7 @@ CREATE TABLE SensorLog(
     slog_value DECIMAL(8,2)  NOT NULL,
     PRIMARY KEY(slog_id),
 
-    FOREIGN KEY (sens_id) 
+    FOREIGN KEY (sens_id)
     REFERENCES Sensors(sens_id) ON
 DELETE CASCADE
 );
@@ -186,8 +189,10 @@ CREATE TABLE ingredient_record(
         director_id INT,
 
         PRIMARY KEY (record_id),
-        FOREIGN KEY (director_id) REFERENCES employee(id)  ON DELETE CASCADE,
-        FOREIGN KEY (ingr_id) REFERENCES ingredients  ON DELETE CASCADE
+        FOREIGN KEY (director_id) REFERENCES employee(id) ON
+DELETE CASCADE ,
+        FOREIGN KEY (ingr_id) REFERENCES ingredients ON
+DELETE CASCADE
 );
 
 CREATE TABLE supplier(
@@ -198,32 +203,49 @@ CREATE TABLE supplier(
         director_id INT,
 
         PRIMARY KEY (s_id),
-        FOREIGN KEY (director_id) REFERENCES employee(id)  ON DELETE CASCADE
+        FOREIGN KEY (director_id) REFERENCES employee(id) ON
+DELETE CASCADE
 );
 
 CREATE TABLE provide(
         record_id INT NOT NULL,
         s_id INT NOT NULL,
         PRIMARY KEY (record_id),
-        FOREIGN KEY (record_id) REFERENCES ingredient_record  ON DELETE CASCADE,
-        FOREIGN KEY (s_id) REFERENCES supplier  ON DELETE CASCADE
+        FOREIGN KEY (record_id) REFERENCES ingredient_record ON
+DELETE CASCADE ,
+        FOREIGN KEY (s_id) REFERENCES supplier ON
+DELETE CASCADE
+);
+
+CREATE TABLE DinningTable(
+    table_id INT NOT NULL,
+    customer_number INT,
+    table_capacity INT,
+    occupied VARCHAR2(20) CHECK(occupied = '是' OR occupied = '否'),
+    PRIMARY KEY (table_id)
 );
 
 CREATE TABLE OrderList (
   order_id VARCHAR(50) NOT NULL,
   creation_time DATE NOT NULL,
-  table_id VARCHAR(50) NOT NULL,
+  table_id INT NOT NULL,
   order_status VARCHAR(20) NOT NULL CHECK(order_status = '待处理' OR order_status = '制作中' OR order_status = '已完成' OR order_status = '已支付'),
-  PRIMARY KEY (order_id)
+  PRIMARY KEY (order_id),
+  FOREIGN KEY (table_id) REFERENCES DINNINGTABLE ON
+DELETE CASCADE
   );
 
  CREATE TABLE DishOrderList (
   dish_order_id VARCHAR(50) NOT NULL,
   order_id VARCHAR(50) NOT NULL,
-  dish_id VARCHAR(50) NOT NULL,
+  dish_id INT NOT NULL,
   final_payment DECIMAL(6,2) NOT NULL,
   dish_status VARCHAR(20) NOT NULL CHECK(dish_status = '待处理' OR dish_status = '制作中' OR dish_status = '已完成'),
-  PRIMARY KEY (dish_order_id)
+  PRIMARY KEY (dish_order_id),
+  FOREIGN KEY (order_id) REFERENCES OrderList ON
+DELETE CASCADE ,
+  FOREIGN KEY (dish_id) REFERENCES Dishes ON
+DELETE CASCADE
 );
 
 CREATE TABLE VIP(
@@ -243,14 +265,6 @@ CREATE TABLE order_number(
     user_name VARCHAR(50) REFERENCES VIP(user_name) ON DELETE CASCADE,
     order_id VARCHAR(50) REFERENCES OrderList(order_id) ON DELETE CASCADE,
     PRIMARY KEY (order_date, order_number)
-);
-
-CREATE TABLE DinningTable(
-    table_id INT NOT NULL,
-    customer_number INT,
-    table_capacity INT,
-    occupied VARCHAR2(20) CHECK(occupied = '是' OR occupied = '否'),
-    PRIMARY KEY (table_id)
 );
 
 CREATE TABLE Promotion(
@@ -300,8 +314,10 @@ CREATE TABLE comment_on_dish(
     stars SMALLINT CHECK(stars BETWEEN  0 AND 5),
     comment_content VARCHAR(256),
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (user_name) REFERENCES VIP  ON DELETE CASCADE,
-    FOREIGN KEY (dish_id) REFERENCES dishes(dish_id)  ON DELETE CASCADE
+    FOREIGN KEY (user_name) REFERENCES VIP ON
+DELETE CASCADE ,
+    FOREIGN KEY (dish_id) REFERENCES dishes(dish_id) ON
+DELETE CASCADE
 );
 
 CREATE TABLE comment_on_service(
@@ -311,5 +327,6 @@ CREATE TABLE comment_on_service(
     stars SMALLINT CHECK(stars BETWEEN  0 AND 5),
     comment_content VARCHAR(256),
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (user_name) REFERENCES VIP  ON DELETE CASCADE
+    FOREIGN KEY (user_name) REFERENCES VIP ON
+DELETE CASCADE
 );

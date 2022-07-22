@@ -305,21 +305,53 @@ INSERT INTO SENSORLOG VALUES(198, 100098, LOCALTIMESTAMP(2), 88.02);
 INSERT INTO SENSORLOG VALUES(199, 100099, LOCALTIMESTAMP(2), 54.21);
 INSERT INTO SENSORLOG VALUES(200, 100100, LOCALTIMESTAMP(2), 79.34);
 
-
---DISHORDERLIST--
-DELETE FROM DISHORDERLIST;
-INSERT INTO DishOrderList VALUES('7nysdg8sn3a', 'hsudfg82dsf', '牡蛎鸭蛋', 11.45, '已完成');
-INSERT INTO DishOrderList VALUES('283nx8ewyfs', 'hsudfg82dsf', '水煮包菜', 4.50, '已完成');
-INSERT INTO DishOrderList VALUES('4783cnyergx', 'hsudfg82dsf', '水煮包菜', 0.00, '已完成');
-INSERT INTO DishOrderList VALUES('4nefugng68l', '87fehrug2ug', '迎宾红茶', 8.10, '已完成');
-INSERT INTO DishOrderList VALUES('9snfsd9dfsf', '87fehrug2ug', '红烧大排', 16.50, '制作中');
-INSERT INTO DishOrderList VALUES('12hejhfbdys', '7neygfwurtw', '土豆牛腩', 32.50, '待处理');
-
 --DINNINGTABLE--
 DELETE FROM DINNINGTABLE;
 INSERT INTO DinningTable VALUES(0, 0, 4, '否');
 INSERT INTO DinningTable VALUES(1, 2, 3, '是');
 INSERT INTO DinningTable VALUES(11, 10, 10, '是');
+
+--ORDERLIST--
+DELETE FROM ORDERLIST;
+INSERT INTO OrderList VALUES(
+'sidfh3f7sdh',
+to_date('2022-04-27 00:00:00','yyyy-mm-dd hh24:mi:ss'),
+0,
+'已支付'
+);
+INSERT INTO OrderList VALUES(
+'hsudfg82dsf',
+to_date('2022-05-01 12:52:30','yyyy-mm-dd hh24:mi:ss'),
+1,
+'已完成'
+);
+INSERT INTO OrderList VALUES(
+'87fehrug2ug',
+to_date('2022-05-13 22:52:11','yyyy-mm-dd hh24:mi:ss'),
+11,
+'制作中'
+);
+INSERT INTO OrderList VALUES(
+'7neygfwurtw',
+to_date('2022-05-13 22:53:22','yyyy-mm-dd hh24:mi:ss'),
+1,
+'待处理'
+);
+
+--DISHES--
+DELETE FROM DISHES;
+INSERT INTO Dishes VALUES(101,'土豆牛腩', 32.50, '富有韧性且肥瘦相间的牛腩肉和土豆装小高压锅里炖煮，牛腩和土豆都炖得软烂入味，用筷子轻轻一戳就可以化开。');
+INSERT INTO Dishes VALUES(102,'红烧大排', 16.50, '一拍，二炸，三煮；肉质嫩，汁水多，味道足，不失为上等佳品。');
+INSERT INTO Dishes VALUES(103,'水煮包菜', 4.50, '朴素的烹饪方法最能体现食材原本的味道。');
+
+--DISHORDERLIST--
+DELETE FROM DISHORDERLIST;
+INSERT INTO DishOrderList VALUES('7nysdg8sn3a', 'hsudfg82dsf', 101, 11.45, '已完成');
+INSERT INTO DishOrderList VALUES('283nx8ewyfs', 'hsudfg82dsf', 102, 4.50, '已完成');
+INSERT INTO DishOrderList VALUES('4783cnyergx', 'hsudfg82dsf', 103, 0.00, '已完成');
+INSERT INTO DishOrderList VALUES('4nefugng68l', '87fehrug2ug', 101, 8.10, '已完成');
+INSERT INTO DishOrderList VALUES('9snfsd9dfsf', '87fehrug2ug', 102, 16.50, '制作中');
+INSERT INTO DishOrderList VALUES('12hejhfbdys', '7neygfwurtw', 101, 32.50, '待处理');
 
 --SALARY--
 DELETE FROM SALARY;
@@ -421,33 +453,6 @@ INSERT INTO payroll(pay_datetime, employee_id) VALUES(to_date('2022-04-30 12:00:
 INSERT INTO payroll(pay_datetime, employee_id) VALUES(to_date('2022-04-30 12:00:00','yyyy-MM-dd HH24:mi:ss'),1013);
 INSERT INTO payroll(pay_datetime, employee_id) VALUES(to_date('2022-04-30 12:00:00','yyyy-MM-dd HH24:mi:ss'),1014);
 
---ORDERLIST--
-DELETE FROM ORDERLIST;
-INSERT INTO OrderList VALUES(
-'sidfh3f7sdh',
-to_date('2022-04-27 00:00:00','yyyy-mm-dd hh24:mi:ss'),
-'A32',
-'已支付'
-);
-INSERT INTO OrderList VALUES(
-'hsudfg82dsf',
-to_date('2022-05-01 12:52:30','yyyy-mm-dd hh24:mi:ss'),
-'B05',
-'已完成'
-);
-INSERT INTO OrderList VALUES(
-'87fehrug2ug',
-to_date('2022-05-13 22:52:11','yyyy-mm-dd hh24:mi:ss'),
-'A32',
-'制作中'
-);
-INSERT INTO OrderList VALUES(
-'7neygfwurtw',
-to_date('2022-05-13 22:53:22','yyyy-mm-dd hh24:mi:ss'),
-'A31',
-'待处理'
-);
-
 --VIP--
 DELETE FROM VIP;
 INSERT INTO VIP VALUES('徐满心', 'xmx12345', date'2001-3-20', '男', 500.5, 20, '否');
@@ -503,12 +508,6 @@ to_date('20180322','yyyymmdd'),
 to_date('20180324','yyyymmdd'),
 '不知道是什么但总之是一个活动'
 );
-
---DISHES--
-DELETE FROM DISHES;
-INSERT INTO Dishes VALUES(101,'土豆牛腩', 32.50, '富有韧性且肥瘦相间的牛腩肉和土豆装小高压锅里炖煮，牛腩和土豆都炖得软烂入味，用筷子轻轻一戳就可以化开。');
-INSERT INTO Dishes VALUES(102,'红烧大排', 16.50, '一拍，二炸，三煮；肉质嫩，汁水多，味道足，不失为上等佳品。');
-INSERT INTO Dishes VALUES(103,'水煮包菜', 4.50, '朴素的烹饪方法最能体现食材原本的味道。');
 
 --DISHTAGS--
 DELETE FROM DISHTAGS;
