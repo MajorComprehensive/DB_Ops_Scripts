@@ -1,3 +1,12 @@
+DROP TABLE  repair;
+CREATE TABLE repair(
+    repair_id int Primary Key ,
+    name VARCHAR(150),
+    phone VARCHAR(30),
+    longitude VARCHAR(30),
+    latitude VARCHAR(30)
+);
+
 CREATE TABLE award(
     lv VARCHAR(50),
     amount DECIMAL(9, 2),
